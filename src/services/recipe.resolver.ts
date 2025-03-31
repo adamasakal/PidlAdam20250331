@@ -11,6 +11,6 @@ export class RecipeResolver implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     const id = route.paramMap.get('id');
-    return this.recipesService.getRecipeById(id);
+    return this.recipesService.getRecipeById(id!);
   }
 }
