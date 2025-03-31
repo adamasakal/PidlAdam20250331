@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, ResolveFn, RouterStateSnapshot } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { Recipe } from '../models/Recipes';
+import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
+import { Observable } from 'rxjs';
+import { RecipesService } from '../app/recipes.service';
 
-@Injectable({ providedIn: 'root' })
-export class UserResolver implements Resolve<Recipe> {
+@Injectable({
+  providedIn: 'root',
+})
+export class RecipeResolver implements Resolve<any> {
+  constructor(private recipesService: RecipesService) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Recipe | any> {
-    return of(null); //töröld ki
+  resolve(route: ActivatedRouteSnapshot): Observable<any> {
+    const id = route.paramMap.get('id');
+    return this.recipesService.getRecipeById(id);
   }
 }
